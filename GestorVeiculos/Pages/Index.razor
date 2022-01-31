@@ -1,0 +1,44 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>Carros</PageTitle>
+@if (cars == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Matricula</th>
+                <th>Data Inspeção</th>
+                <th>Quilometros</th>
+                <th>Peneus</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in cars)
+            {
+                <tr>
+                    <td>@car.CarName</td>
+                    <td>@car.Plate</td>
+                    <td>@car.InspectionDate.ToShortDateString()</td>
+                    <td>@car.KilometersDone.ToString() Km / @car.KilometersLimit.ToString() Km</td>
+                    <td>@car.TiresDone.ToString() Km / @car.TiresLimit.ToString() Km</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private List<Car>? cars;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cars = await Http.GetFromJsonAsync<List<Car>>("data/data.json");
+    }
+}

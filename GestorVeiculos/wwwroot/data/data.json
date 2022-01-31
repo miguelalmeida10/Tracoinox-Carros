@@ -1,0 +1,22 @@
+[
+  {
+    "carName": "Renault Master",
+    "plate": "11-xx-11",
+    "inspectionDate": "2018-05-09",
+    "kilometersDone": 100,
+    "kilometersLimit": 20000,
+    "tiresLimit": 10000,
+    "tiresDone": 100,
+    "alertMessage": false
+  },
+  {
+    "carName": "Renault Megane",
+    "plate": "11-xx-12",
+    "inspectionDate": "2023-11-01",
+    "kilometersDone": 200,
+    "kilometersLimit": 20000,
+    "tiresLimit": 20000,
+    "tiresDone": 2000,
+    "alertMessage": false
+  }
+]

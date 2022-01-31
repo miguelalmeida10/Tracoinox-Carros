@@ -1,0 +1,66 @@
+﻿@page "/Add"
+@inject HttpClient Http
+<h3>Adicionar Carro</h3>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Nome</span>
+        <input @bind-value="car.CarName" type="text" class="form-control" placeholder="ex Renault Master" aria-label="Nome" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Matricula</span>
+        <input @bind-value="car.Plate" type="text" class="form-control" placeholder="ex 11-xx-11" aria-label="Matricula" aria-describedby="basic-addon1">
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Data Inspeção</span>
+        <input @bind-value="car.InspectionDate" type="date" class="form-control" placeholder="ex 11-01-2022" aria-label="data inspeção" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Limite de Quilometros</span>
+        <input @bind-value="car.KilometersLimit" type="number" class="form-control" placeholder="ex 100" aria-label="Matricula" aria-describedby="basic-addon1">
+        <span class="input-group-text">Km</span>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Quilometros Realizados</span>
+        <input @bind-value="car.KilometersDone" type="number" class="form-control" placeholder="ex 100" aria-label="Matricula" aria-describedby="basic-addon1">
+        <span class="input-group-text">Km</span>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Limite de Peneus</span>
+        <input @bind-value="car.TiresLimit" type="number" class="form-control" placeholder="ex 100" aria-label="Matricula" aria-describedby="basic-addon1">
+        <span class="input-group-text">Km</span>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Peneus Realizados</span>
+        <input @bind-value="car.TiresDone" type="number" class="form-control" placeholder="ex 100" aria-label="Matricula" aria-describedby="basic-addon1">
+        <span class="input-group-text">Km</span>
+    </div>
+    
+    <br />
+    <button type="button" class="btn btn-success" @onclick="ReSerializeAsync">Submeter</button>
+    <button type="button" class="btn btn-outline-secondary">Cancelar</button>
+
+    @if (newJson != null)
+{
+    <span>
+        @newJson
+    </span>
+}
+@code {
+    Car car = new();
+    private List<Car>? cars;
+    string? newJson;
+    protected override async Task OnInitializedAsync()
+    {
+        cars = await Http.GetFromJsonAsync<List<Car>>("data/carro.json");
+
+    }
+
+    private async Task ReSerializeAsync()
+    {
+        string path = "C:\\Users\\Miguel\\Documents\\test";
+        cars.Add(car);
+        newJson = JsonSerializer.Serialize<List<Car>>(cars);
+    }
+
+}
